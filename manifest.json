@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Customer Portal Scavenger Hunt",
+  "description": "This extension shows a Google Image search result for the current page",
+  "version": "1.0",
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://access.redhat.com/*"],
+      "js": ["main.js"]
+    }
+  ],
+  "web_accessible_resources":[
+    "bower_components/**/*",
+    "scavengerhunt-app.html"
+  ]
+}

@@ -1,0 +1,30 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<dom-module id="sh-app">
+  <template>
+    <style>
+      :host {
+        background: rgba(0, 0, 0, 0.5);
+        display: block;
+        position: fixed;
+        top: 50%;
+        left: 0;
+        width: 250px;
+        z-index: 9999999999;
+      }
+    </style>
+
+    <h1>Scavenger Hunt App</h1>
+  </template>
+  <script>
+    Polymer({
+      is: 'sh-app',
+
+      ready: () => {
+        document.body.addEventListener('click', evt => {
+          console.log('Clicked', evt);
+        });
+      }
+    });
+  </script>
+</dom-module>
