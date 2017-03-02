@@ -1,29 +1,108 @@
-<link rel="import" href="bower_components/polymer/polymer.html">
-
 <dom-module id="sh-app">
   <template>
     <style>
       :host {
-        background: rgba(0, 0, 0, 0.5);
+        background: #212121;
         display: block;
         position: fixed;
-        top: 50%;
+        color: rgba(255, 255, 255, 1);
+        top: 3%;
         left: 0;
-        width: 250px;
+        width: 350px;
+        max-height: 94%;
         z-index: 9999999999;
+      }
+
+      .secondary {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      h4 {
+        margin-bottom: 0;
+      }
+
+      .complete .title {
+        text-decoration: line-through;
+      }
+
+      .big {
+        fill: white;
+        margin-left: 16px;
+        border: 4px solid green;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+      }
+
+      header,
+      li {
+        padding: 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .items-container {
+        height: calc(100% - 116px);
+        overflow: scroll;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        display: flex;
+        align-items: center;
+      }
+
+      button {
+        width: calc(50% - 2px);
       }
     </style>
 
-    <h1>Scavenger Hunt App</h1>
+    <header>
+      <h4>Portal Scavenger Hunt</h4>
+    </header>
+    <div class="items-container">
+      <ul>
+        <template is="dom-repeat" items="[[items]]">
+          <li class$="[[_computeComplete(item.completed)]]">
+            <div>
+              <p class="title"><strong>[[item.title]]</strong></p>
+              <span class="secondary">[[item.text]]</span>
+            </div>
+            <template is="dom-if" if="[[item.completed]]" restamp="true">
+              <div>
+                <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" class="big" style="pointer-events: none; display: block;"><g><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></g></svg>
+              </div>
+            </template>
+          </li>
+        </template>
+      </ul>
+    </div>
+    <div>
+      <button class="btn btn-accent">Done!</button>
+      <button class="btn btn-primary" on-tap="reset">Reset</button>
+    </div>
   </template>
   <script>
     Polymer({
       is: 'sh-app',
 
-      ready: () => {
-        document.body.addEventListener('click', evt => {
-          console.log('Clicked', evt);
-        });
+      properties: {
+        extensionId: String,
+        items: Array
+      },
+
+      _computeComplete: function (complete) {
+        return (complete) ? 'complete' : '';
+      },
+
+      reset: function () {
+        window.postMessage({
+          type: 'FROM_PAGE',
+          action: 'reset'
+        }, '*');
       }
     });
   </script>

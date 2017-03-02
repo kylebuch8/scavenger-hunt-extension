@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Customer Portal Scavenger Hunt",
-  "description": "This extension shows a Google Image search result for the current page",
+  "description": "A scavenger hunt on the Customer Portal built for the 2017 Red Hat Summit",
   "version": "1.0",
   "permissions": [
     "storage"
@@ -14,6 +14,7 @@
   ],
   "web_accessible_resources":[
     "bower_components/**/*",
-    "scavengerhunt-app.html"
+    "scavengerhunt-app.html",
+    "main.js"
   ]
 }
